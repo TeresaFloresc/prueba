@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	<header th:replace="/index :: header"></header>
+	<div class="main">
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header text-white bg-dark">Editar Producto</div>
+				<div class="card-body">
+
+					<form th:action="@{/products/{id}/update(id=${product.id})}" th:object="${product}"
+						method="post">
+
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Nombre</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{name}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="unit" class="col-sm-2 col-form-label">UND</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{unit}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></small>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="location" class="col-sm-2 col-form-label">Ubicacion</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{location}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="price" class="col-sm-2 col-form-label">Precio</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{price}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="stock" class="col-sm-2 col-form-label">Stock</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{stock}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="min_stock" class="col-sm-2 col-form-label">Stock Minimo</label>
+							<div class="form-group" style="min-width: 80%">
+								<input type="text" th:field="*{min_stock}"
+									class="form-control validate"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('min_stock')}" th:errors="*{min_stock}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="category">Categoria</label> <select id="category"
+								class="form-control" th:field="*{categories}"
+								multiple="multiple" style="height: 120px">
+								<option th:each="category:${categories}"
+									th:text="${category.name}" th:value="${category.id}">
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="supplier">Proveedor</label> <select id="supplier"
+								class="form-control" th:field="*{supplier}">
+								<option th:each="supplier : ${suppliers}"
+									th:text="${supplier.name}" th:value="${supplier.id}"></option>
+							</select>
+						</div>
+
+						<button type="submit" class="btn btn-dark">Guardar</button>
+						<a class="btn btn-primary" th:href="@{'/products'}">Cancelar</a>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/index :: footer"></footer>
+</body>
+
+</html>
+

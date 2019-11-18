@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+
+	<header th:replace="/index :: header"></header>
+
+	<div class="main">
+
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+
+						<div class="title" style="padding-top: 50px">
+							<h2>Mantenimiento de Proveedores</h2>
+						</div>
+
+						<nav class="navbar navbar-light bg-light">
+							<a th:href="@{/suppliers/new}" class="btn btn-primary">Nuevo</a>
+							<form th:action="@{/suppliers/search}" method="GET">
+								<div class="form-row align-items-center">
+									<div class="col-auto">
+										<label class="sr-only" for="inputName">Nombre</label> <input
+											id="inputName" type="text" class="form-control" name="name"
+											placeholder="Buscar por Nombre">
+									</div>
+									<div class="col-auto">
+										<button type="submit" class="btn btn-primary">Buscar</button>
+									</div>
+								</div>
+							</form>
+						</nav>
+
+						<table class="table table-responsive highlight">
+							<thead>
+								<tr>
+									<th>Codigo</th>
+									<th>Nombre</th>
+									<th>Direccion</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th>Contacto</th>
+									<th>RUC</th>
+									<th>Editar</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="supplier : ${suppliersList}">
+									<td th:text="${supplier.id}"></td>
+									<td th:text="${supplier.name}"></td>
+									<td th:text="${supplier.adress}"></td>
+									<td th:text="${supplier.email}"></td>
+									<td th:text="${supplier.phone}"></td>
+									<td th:text="${supplier.contact}"></td>
+									<td th:text="${supplier.ruc}"></td>									
+									<td><a
+										th:href="@{/suppliers/{id}/edit(id=${supplier.id})}"
+										class="btn btn-primary">Editar</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
+
+			<div class="container">
+				<th:block th:include="fragments/paginationSupplier"></th:block>
+			</div>
+
+		</div>
+	</div>
+
+	<footer th:replace="index :: footer"></footer>
+</body>
+
+</html>

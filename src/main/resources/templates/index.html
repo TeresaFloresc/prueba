@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarTogglerDemo01"
+				aria-controls="navbarTogglerDemo01" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/home}">Rapifarma</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Mantenimiento </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#" th:href="@{/categories}">Categorias</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" th:href="@{/suppliers}">Proveedores</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" th:href="@{/products}">Productos</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" th:href="@{/patients}">Pacientes</a>
+						</div></li>
+
+					<li class="dropdown nav-item"><a th:href="@{/orders}"
+						class="nav-link">Ordenes</a></li>
+
+					<li class="dropdown nav-item"><a th:href="@{/vouchers}"
+						class="nav-link">Venta</a></li>
+
+				</ul>
+
+			</div>
+
+			<ul class="navbar-nav navbar-right">
+
+				<li class="dropdown nav-item" sec:authorize="!isAuthenticated()">
+					<a th:href="@{/login}" class="nav-link">Iniciar Sesion</a>
+				</li>
+
+				<li class="dropdown nav-item"><a th:href="@{/logout}"
+					class="nav-link" sec:authorize="isAuthenticated()">Cerrar
+						Sesion</a></li>
+			</ul>
+		</nav>
+
+		<div class="container text-center">
+			<h1>Market</h1>
+		</div>
+
+
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+	</header>
+
+	<div class="container" style="min-width: 100%">
+		<img alt="" class="img-fluid" src="/img/pexels/background4.jpg"
+			style="min-width: 100%;">
+		<div class="container" style="text-align: center;">
+			<h1 style="padding: 20px;border-bottom-style: solid; ">
+				<b>Rapifarma App</b>
+			</h1>
+		</div>
+
+	</div>
+	
+	<section class="contact-section bg-black">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-4 mb-3 mb-md-0">
+					<div class="card py-4 h-100">
+						<div class="card-body text-center">
+							<i class="fas fa-map-marked-alt text-primary mb-2"></i>
+							<h4 class="text-uppercase m-0">Address</h4>
+							<hr class="my-4">
+							<div class="small text-black-50">Prolongacion Primavera 2390, Lima 15023</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 mb-3 mb-md-0">
+					<div class="card py-4 h-100">
+						<div class="card-body text-center">
+							<i class="fas fa-envelope text-primary mb-2"></i>
+							<h4 class="text-uppercase m-0">Email</h4>
+							<hr class="my-4">
+							<div class="small text-black-50">
+								<a  href="mailto:jdenegri95@gmail.com?Subject=Interesado%20en%20la%20aplicacion web">jdenegri95@gmail.com</a>
+								<a href="mailto:sofya285@gmail.com?Subject=Interesado%20en%20la%20aplicacion web">sofya285@gmail.com</a>
+								<a href="mailto:crisdp30@gmail.com?Subject=Interesado%20en%20la%20aplicacion web">crisdp30@gmail.com</a>
+								<a href="mailto:Teresafloresc@hotmail.com?Subject=Interesado%20en%20la%20aplicacion web">Teresafloresc@hotmail.com</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 mb-3 mb-md-0">
+					<div class="card py-4 h-100">
+						<div class="card-body text-center">
+							<i class="fas fa-mobile-alt text-primary mb-2"></i>
+							<h4 class="text-uppercase m-0">Phone</h4>
+							<hr class="my-4">
+							<div class="small text-black-50">Teresa            +51 920-147-890</div>
+							<div class="small text-black-50">Jose Luis Denegri +51 946-898-615</div>
+							<div class="small text-black-50">Sandra Campos     +51 956-109-661</div>
+							<div class="small text-black-50">Cripsty           +51 926-291-404</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<section class="contact-section bg-black" style="padding-top: 50px; align-content: center;">
+		<div class="container">
+
+			<div class="row">	
+				<div class="col-md-4 mb-3 mb-md-0">
+					<div class="card py-4 h-100">
+						<div class="card-body text-center">
+							<i class="fas fa-envelope text-primary mb-2"></i>
+							<h4 class="text-uppercase m-0">Vision</h4>
+							<hr class="my-4">
+							<div class="small text-black-50">
+							<a>Ser el sistema lider que brinde soporte a los procesos de las farmacias tanto 
+							estatales y particulares, destacandose por su efectividad y constante innovacion</a>	
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 mb-3 mb-md-0">
+					<div class="card py-4 h-100">
+						<div class="card-body text-center">
+							<i class="fas fa-mobile-alt text-primary mb-2"></i>
+							<h4 class="text-uppercase m-0">Mision</h4>
+							<hr class="my-4">
+							<div class="small text-black-50">
+							<a>Rapifarma brinda soporte a los procesos de logística y ventas de la farmacia del 
+							hospital Sergio Bernales para poder optimizar el negocio reduciendo tiempos de entrega y 
+							atención así como brindar la información correcta en todo momento.</a>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	
+
+	<footer th:fragment="footer" class="container">
+		<p>
+			Powered by <a href="https://github.com/githamp" target=_blank>HAMP</a>.&copy;
+			Company 2019.
+		</p>
+
+
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+	</footer>
+
+
+</body>
+</html>

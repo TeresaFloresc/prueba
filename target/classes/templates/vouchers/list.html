@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	
+	<header th:replace="/index :: header"></header>
+
+	<div class="main">
+		
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+
+						<div class="title" style="padding-top: 50px">
+							<h2>Ventas</h2>
+						</div>
+						
+						<nav class="navbar navbar-light bg-light">
+							<a th:href="@{/vouchers/new}" class="btn btn-primary">Nuevo</a>										
+							
+							<form th:action="@{/vouchers/search}" method="GET">
+							
+								<div class="form-row align-items-center">
+									<div class="col-auto">
+										<label class="col-auto" for="patient">Buscar por paciente</label> 										
+									</div>
+									
+									<div class="col-auto">
+										<select id="patient" class="form-control" th:field="*{patient}">
+											<option th:each="patient : ${patients}"
+												th:text="${patient.name}" th:value="${patient.name}">
+											</option>
+										</select>									
+									</div>
+									
+									<div class="col-auto">
+										<button type="submit" class="btn btn-primary">Buscar</button>
+									</div>
+								</div>
+							</form>
+							
+						</nav>
+
+						<table class="table table-responsive highlight" >
+							<thead>
+								<tr>
+									<th>Codigo</th>
+									<th>Numero</th>
+									<th>Fecha Emision</th>
+									<th>Paciente</th>
+									<th>Valor Venta</th>
+									<th>IGV</th>
+									<th>Total Venta</th>
+									<th>Observaciones</th>
+									<th>Editar</th>																																																																		
+									<th></th>								
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="voucher : ${vouchersList}">
+									<td th:text="${voucher.id}"></td>
+									<td th:text="${voucher.number}"></td>
+									<td th:text="${voucher.dateEmission}"></td>
+									<td>
+										<th:block th:each="patient : ${voucher.patient}">
+											<span th:text="${patient.name} + ' '">Item Description Here...</span>
+										</th:block>								
+									</td>
+									<td th:text="${voucher.sale_value}"></td>
+									<td th:text="${voucher.igv}"></td>
+									<td th:text="${voucher.total_import}"></td>
+									<td th:text="${voucher.observation}"></td>																																																																				
+									<td><a
+										th:href="@{/vouchers/{id}/edit(id=${voucher.id})}"><i
+											class="far fa-edit"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
+
+			<div class="container">
+				<th:block th:include="fragments/paginationVoucher"></th:block>
+			</div>
+
+		</div>
+	</div>
+
+	<footer th:replace="index :: footer"></footer>
+	
+</body>
+
+</html>

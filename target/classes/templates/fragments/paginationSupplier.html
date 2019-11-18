@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-md-8 offset-md-2 col-sm-12">
+		<div th:if="${suppliersList.totalPages != 1}" class="section">
+			<ul class="pagination pagination-primary">
+				<li class="page-item"
+					th:class="${suppliersList.number == 0} ? disabled"><a
+					class="page-link"
+					th:href="@{/suppliers/(pageSize=${selectedPageSize}, page=1)}">Â«</a></li>
+				<li class="page-item"
+					th:class="${suppliersList.number == 0} ? disabled"><a
+					class="page-link"
+					th:href="@{/suppliers/(pageSize=${selectedPageSize}, page=${suppliersList.number})}">â†�</a>
+				</li>
+				<li
+					th:class="${suppliersList.number == (page - 1)} ? 'active page-item'"
+					th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+					<a class="page-link"
+						th:href="@{/suppliers/(pageSize=${selectedPageSize}, page=${page})}"
+						th:text="${page}">
+					</a>
+				</li>
+				<li class="page-item"
+					th:class="${suppliersList.number + 1 == suppliersList.totalPages} ? disabled">
+					<a class="page-link"
+						th:href="@{/suppliers/(pageSize=${selectedPageSize}, page=${suppliersList.number + 2})}">â†’
+					</a>
+				</li>
+					<li class="page-item"
+						th:class="${suppliersList.number + 1 == suppliersList.totalPages} ? disabled">
+						<a class="page-link"
+							th:href="@{/suppliers/(pageSize=${selectedPageSize}, page=${suppliersList.totalPages})}">Â»
+						</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

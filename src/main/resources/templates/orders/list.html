@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	
+	<header th:replace="/index :: header"></header>
+
+	<div class="main">
+		
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+
+						<div class="title" style="padding-top: 50px">
+							<h2>Ordenes</h2>
+						</div>
+						
+						<nav class="navbar navbar-light bg-light">
+							<a th:href="@{/orders/new}" class="btn btn-primary">Nuevo</a>
+							<form th:action="@{/orders/search}" method="GET">
+								<div class="form-row align-items-center">
+									<div class="col-auto">
+										<label class="sr-only" for="inputName">Nombre</label>
+										<input id="inputName" type="text" class="form-control" name="name"
+											placeholder="Buscar por Nombre">
+									</div>
+									<div class="col-auto">
+										<button type="submit" class="btn btn-primary">Buscar</button>
+									</div>
+								</div>					
+							</form>
+						</nav>
+
+						<table class="table table-responsive highlight">
+							<thead>
+								<tr>
+									<th>Codigo</th>
+									<th>Orden</th>
+									<th>Fecha Emision</th>
+									<th>Fecha Recepcion</th>
+									<th>Estado</th>																																																									
+									<th></th>								
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="order : ${ordersList}">
+									<td th:text="${order.id}"></td>
+									<td th:text="${order.name}"></td>
+									<td th:text="${order.dateEmission}"></td>
+									<td th:text="${order.dateReception}"></td>
+									<td th:text="${order.state}"></td>																																																				
+									<td><a
+										th:href="@{/orders/{id}/edit(id=${order.id})}"><i
+											class="far fa-edit"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
+
+			<div class="container">
+				<th:block th:include="fragments/paginationOrder"></th:block>
+			</div>
+
+		</div>
+	</div>
+
+	<footer th:replace="index :: footer"></footer>
+	
+</body>
+
+</html>

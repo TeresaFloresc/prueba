@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+
+	<header th:replace="/index :: header"></header>
+
+	<div class="main">
+
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header text-white bg-dark">Nueva Venta</div>
+				<div class="card-body">
+
+					<form id="frmCreateVoucher" th:action="@{/vouchers/create}"
+						th:object="${voucher}" method="post">
+
+						<div class="form-group row">
+							<label for="number" class="col-sm-2 col-form-label">Nro.
+								Voucher</label>
+							<div class="col-sm-6" style="min-width: 80%">
+								<input type="text" th:field="*{number}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></small>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="patient">Paciente</label>
+							<select id="patient" class="col-sm-6" th:field="*{patient}">
+								<option th:each="patient : ${patients}"
+									th:text="${patient.name}" th:value="${patient.id}"></option>
+							</select>
+						</div>
+
+						<div class="form-group row">
+							<label for="observation" class="col-sm-2 col-form-label">Observacion</label>
+							<div class="col-sm-6" style="min-width: 80%">
+								<textarea th:field="*{observation}" class="form-control"
+									th:errorclass="'form-control alert-danger'"></textarea>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('observation')}"
+									th:errors="*{observation}"></small>
+							</div>
+						</div>
+
+					</form>
+
+					<div class="container py-4">
+						<div class="card bg-light">
+							<div class="card-header text-white bg-dark">Detalle</div>
+							<div class="card-body">
+
+								<table class="table table-responsive highlight">
+									<thead>
+										<tr>
+											<th>Producto</th>
+											<th>Cantidad</th>
+											<th>Precio</th>
+											<th>Precio Total</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="voucherDetail : ${voucherDetailList}">
+											<td><th:block
+													th:each="product : ${voucherDetail.product}">
+													<span th:text="${product.name} + ' '">Item
+														Description Here...</span>
+												</th:block></td>
+											<td th:text="${voucherDetail.quantity}"></td>
+											<td th:text="${voucherDetail.product.price}"></td>
+											<td th:text="${voucherDetail.product.price * voucherDetail.quantity}"></td>
+										</tr>
+									</tbody>
+
+								</table>
+
+								<div class="Container" style="text-align: right;">
+									
+									<div class="form-group row">
+										<h4 class="col-sm-2 col-form-label">SubTotal</h4>
+										<div class="col-sm-6" style="min-width: 80%" >
+											<h4 class="col-sm-2 col-form-label" th:text="${subTotal}"></h4>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<h4 class="col-sm-2 col-form-label">IGV</h4>
+										<div class="col-sm-6" style="min-width: 80%">
+											<h4 class="col-sm-2 col-form-label" th:text="${igv}"></h4>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<h4 class="col-sm-2 col-form-label">Total</h4>
+										<div class="col-sm-6" style="min-width: 80%">
+											<h4 class="col-sm-2 col-form-label" th:text="${total}"></h4>
+										</div>
+									</div>
+
+								</div>
+
+
+								<!-- Button trigger modal -->
+								<a type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modalDetail"> Agregar</a>
+
+								<!-- Modal -->
+								<div class="modal fade" id="modalDetail" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Agregar
+													Producto</h5>
+											</div>
+											<div class="modal-body">
+												<form id="frmCreateVoucherDetail"
+													th:action="@{/vouchers/voucherDetail/create}"
+													th:object="${voucherDetail}" method="post">
+
+													<div class="form-group">
+														<label for="product">Producto</label> <select id="product"
+															class="form-control" th:field="*{product}">
+															<option th:each="product : ${products}"
+																th:text="${product.name}" th:value="${product.id}"></option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<label for="quantity">Cantidad</label>
+														<div class="form-group">
+															<input type="text" th:field="*{quantity}"
+																class="form-control validate"
+																th:errorclass="'form-control alert-danger'" /> <small
+																class="form-text text-danger"
+																th:if="${#fields.hasErrors('quantity')}"
+																th:errors="*{quantity}"></small>
+														</div>
+													</div>
+
+
+
+												</form>
+
+
+											</div>
+											<div class="modal-footer">
+												<button form="frmCreateVoucherDetail" type="submit"
+													class="btn btn-primary">Agregar</button>
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Cancelar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row" style="text-align: right;">
+				<div class="container">
+					<button type="submit" form="frmCreateVoucher" class="btn btn-dark">Guardar</button>
+					<a class="btn btn-primary" th:href="@{'/vouchers'}">Cancelar</a>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="/index :: footer"></footer>
+	</div>
+</body>
+
+</html>

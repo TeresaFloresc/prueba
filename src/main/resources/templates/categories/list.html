@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	
+	<header th:replace="/index :: header"></header>
+
+	<div class="main">		
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+
+						<div class="title" style="padding-top: 50px">
+							<h2>Mantenimiento de Categorias</h2>
+						</div>
+												
+						<nav class="navbar navbar-light bg-light">
+							<a th:href="@{/categories/new}" class="btn btn-primary">Nuevo</a>
+							<form th:action="@{/categories/search}" method="GET">
+								<div class="form-row align-items-center">
+									<div class="col-auto">
+										<label class="sr-only" for="inputName">Nombre</label>
+										<input id="inputName" type="text" class="form-control" name="name"
+											placeholder="Buscar por Categoria">
+									</div>
+									<div class="col-auto">
+										<button type="submit" class="btn btn-primary">Buscar</button>
+									</div>																		
+								</div>					
+							</form>
+						</nav>
+
+						<table class="table table-responsive highlight">
+							<thead>
+								<tr>
+									<th>Codigo</th>
+									<th>Categoria</th>	
+									<th>Editar</th>								
+									<th></th>									
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="category : ${categoriesList}">
+									<td th:text="${category.id}"></td>
+									<td th:text="${category.name}"></td>									
+
+									<td><a th:href="@{/categories/{id}/edit(id=${category.id})}"
+										class="btn btn-primary">Editar</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
+
+			<div class="container">
+				<th:block th:include="fragments/paginationCategory"></th:block>
+			</div>
+
+		</div>
+	</div>
+	
+	<footer th:replace="index :: footer"></footer>
+	
+</body>
+
+</html>

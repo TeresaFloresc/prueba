@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	
+	<header th:replace="/index :: header"></header>
+	
+	<div class="main">
+
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header text-white bg-dark">Editar Proveedor</div>
+				<div class="card-body">
+
+					<form th:action="@{/suppliers/{id}/update(id=${supplier.id})}" th:object="${supplier}"
+						method="post">
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Nombre</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{name}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('name')}"
+									th:errors="*{name}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="adress" class="col-sm-2 col-form-label">Direccion</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{adress}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('adress')}"
+									th:errors="*{adress}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="email" class="col-sm-2 col-form-label">Email</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{email}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="phone" class="col-sm-2 col-form-label">Telefono</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{phone}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('phone')}"
+									th:errors="*{phone}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="contact" class="col-sm-2 col-form-label">Contacto</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{contact}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('contact')}"
+									th:errors="*{contact}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="ruc" class="col-sm-2 col-form-label">RUC</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{ruc}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('ruc')}"
+									th:errors="*{ruc}"></small>
+							</div>
+						</div>
+									
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<button type="submit" class="btn btn-dark">Guardar</button>
+								<a class="btn btn-primary" th:href="@{'/suppliers'}">Cancelar</a>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/index :: footer"></footer>
+</body>
+
+</html>
